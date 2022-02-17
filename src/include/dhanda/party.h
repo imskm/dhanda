@@ -5,10 +5,10 @@
 
 int dhanda_party_init(struct dhanda *app);
 int dhanda_party_add(struct dhanda *app, struct party *party);
-int dhanda_party_update(struct dhanda *app, struct party *party);
+int dhanda_party_update(struct dhanda *app, struct party *old_party, struct part *new_party);
 int dhanda_party_delete(struct dhanda *app, struct party *party);
 int dhanda_party_findbyid(struct dhanda *app, int id, struct party *result);
-int dhanda_party_search(struct dhanda *app, char *query, struct dhanda_list *list);
-int dhanda_party_get(struct dhanda *app, struct dhanda_list *list, int items, int page);
+int dhanda_party_search(struct dhanda *app, char *query, struct list *list);
+int dhanda_party_get(struct dhanda *app, struct list *list, int items, int page);
 
 #endif
