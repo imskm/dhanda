@@ -1,17 +1,29 @@
 #ifndef _DHANDA_H_
 #define _DHANDA_H_
 
-#include <dhanda/party.h>
+struct dhanda {
+	FILE *party_fp;
+	FILE *txn_fp;
+};
+
+struct dhanda_list {
+	// @TODO
+};
+
+void dhanda_init_app(struct dhanda *app);
+
+void dhanda_ui_home(struct dhanda *app);
+void dhanda_ui_party_list(struct dhanda *app);
+void dhanda_ui_party_show(struct dhanda *app);
+void dhanda_ui_party_create(struct dhanda *app);
+void dhanda_ui_party_edit(struct dhanda *app);
+void dhanda_ui_txn_list(struct dhanda *app);
+void dhanda_ui_txn_show(struct dhanda *app);
+void dhanda_ui_txn_create(struct dhanda *app);
+void dhanda_ui_txn_edit(struct dhanda *app);
+
+
 #include <dhanda/txn.h>
 
-void dhanda_ui_home(void);
-void dhanda_ui_party_list(void);
-void dhanda_ui_party_show(void);
-void dhanda_ui_party_create(void);
-void dhanda_ui_party_edit(void);
-void dhanda_ui_txn_list(void);
-void dhanda_ui_txn_show(void);
-void dhanda_ui_txn_create(void);
-void dhanda_ui_txn_edit(void);
 
 #endif
