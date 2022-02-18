@@ -1,13 +1,28 @@
 CC=gcc
-CFLAGS=-g
 CFLAGS+=-Isrc/include
 
 EXECUTABLE=dhanda
-OBJ_PATH=.objs
-SRC_PATH=src
-SRCS=$(SRC_PATH)/dhanda.c $(SRC_PATH)/party_create.c $(SRC_PATH)/party_read.c $(SRC_PATH)/party_update.c $(SRC_PATH)/party_delete.c \
-	 $(SRC_PATH)/txn_create.c $(SRC_PATH)/txn_read.c $(SRC_PATH)/txn_update.c $(SRC_PATH)/txn_delete.c \
-	 $(SRC_PATH)/ui.c $(SRC_PATH)/list.c
+OBJDIR=.objs
+SRCDIR=src
+SRCS:=$(shell find $(SRCDIR) -name '*.c')
+OBJS:=$(SRCS:src/%=$(OBJDIR)/%.o)
+HEADERS:=$(shell find $(SRCDIR) -name *.h)
 
-dhanda:
-	$(CC) $(CFLAGS) -o $(EXECUTABLE) $(SRCS)
+# If built for PROD then remove debug flag and add optimize flag
+ifdef PROD
+	CFLAGS+=-O3
+else
+	CFLAGS+=-g
+endif
+
+$(EXECUTABLE): $(OBJDIR) $(OBJS)
+	$(CC) $(OBJS) -o $@
+
+$(OBJDIR):
+	@mkdir $@
+
+$(OBJDIR)/%.c.o: $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@ 
+
+clean:
+	rm -rf $(OBJDIR)
