@@ -1,6 +1,9 @@
 #include <stdio.h>
 
 #include <dhanda/dhanda.h>
+#include <dhanda/ui.h>
+#include <dhanda/party.h>
+#include <dhanda/txn.h>
 
 int main(int argc, char *argv[])
 {
@@ -8,11 +11,11 @@ int main(int argc, char *argv[])
 
 	dhanda_init_app(&app);
 
-	dhanda_ui_home(&app);
-	//dhanda_ui_party_list(&app);
-	//dhanda_ui_party_show(&app);
-	//dhanda_ui_party_create(&app);
-	//dhanda_ui_party_edit(&app);
+	ui_home(&app);
+	//ui_party_list(&app);
+	//ui_party_show(&app);
+	//ui_party_create(&app);
+	//ui_party_edit(&app);
 
 	return 0;
 }

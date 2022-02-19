@@ -3,11 +3,14 @@
 
 #include <dhanda/dhanda.h>
 
-void dhanda_ui_home(struct dhanda *app);
-void dhanda_ui_party_list(struct dhanda *app);
-void dhanda_ui_party_show(struct dhanda *app);
-void dhanda_ui_party_create(struct dhanda *app);
-void dhanda_ui_party_edit(struct dhanda *app);
+void ui_home(struct dhanda *app);
+void ui_party_list(struct dhanda *app);
+void ui_party_show(struct dhanda *app);
+void ui_party_create(struct dhanda *app);
+void ui_party_edit(struct dhanda *app);
 
+void ui_txn_list(struct dhanda *app);
+void ui_txn_show(struct dhanda *app);
+void ui_txn_create(struct dhanda *app);
 
 #endif

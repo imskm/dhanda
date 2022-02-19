@@ -3,25 +3,27 @@
 
 #include <dhanda/dhanda.h>
 
-struct txn {
+typedef struct txn {
 	// @TODO
-};
+} txn;
 
-struct txn_stat {
+typedef struct txn_stat {
 	// @TODO
-};
+} txn_stat;
 
-struct txn_filter {
+typedef struct txn_filter {
+	int page;
+	int items;
 	// @TODO
-};
+} txn_filter;
 
-int dhanda_txn_init(struct dhanda *app);
-int dhanda_txn_add(struct dhanda *app, struct txn *txn);
-int dhanda_txn_findbyid(struct dhanda *app, int id, struct txn *txn);
-int dhanda_txn_search(struct dhanda *app, char *query, struct list *list);
-int dhanda_txn_get(struct dhanda *app, struct list *list, int items, int page);
-int dhanda_txn_findbytype(struct dhanda *app, struct list *list, int type);
-int dhanda_txn_getstat(struct dhanda *app, struct txn_stat *txn_stat, struct txn_filter *txn_filter);
+int txn_init(dhanda *app);
+int txn_add(dhanda *app, txn *txn);
+int txn_findbyid(dhanda *app, int id, txn *result);
+int txn_search(dhanda *app, char *query, struct list *result);
+int txn_get(dhanda *app, txn_filter filter, struct list *result);
+int txn_findbytype(dhanda *app, int type, struct list *result);
+int txn_getstat(dhanda *app, txn_filter filter, txn_stat *result);
 
 #endif
 
