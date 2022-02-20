@@ -37,18 +37,4 @@ void dhanda_command_party_ui(dhanda *app);
 void dhanda_command_txn_ui(dhanda *app);
 void dhanda_command_exit(dhanda *app);
 
-static struct {
-	char *cmd;
-	void (*handle)(dhanda *);
-} commands[] = {
-	{ "p", 					dhanda_command_party_ui },
-	{ "party", 				dhanda_command_party_ui },
-	{ "t", 					dhanda_command_txn_ui },
-	{ "txn", 				dhanda_command_txn_ui },
-	{ "exit", 				dhanda_command_exit },
-
-	{ NULL, NULL }
-};
-
-
 #endif

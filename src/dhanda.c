@@ -3,6 +3,20 @@
 #include <dhanda/party.h>
 #include <dhanda/txn.h>
 
+static struct {
+	char *cmd;
+	void (*handle)(dhanda *);
+} commands[] = {
+	{ "p", 					dhanda_command_party_ui },
+	{ "party", 				dhanda_command_party_ui },
+	{ "t", 					dhanda_command_txn_ui },
+	{ "txn", 				dhanda_command_txn_ui },
+	{ "exit", 				dhanda_command_exit },
+
+	{ NULL, NULL }
+};
+
+
 static int quit;
 
 int main(int argc, char *argv[])
