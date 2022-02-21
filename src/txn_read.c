@@ -1,4 +1,5 @@
-#include<dhanda/dhanda.h>
+#include <dhanda/dhanda.h>
+#include <dhanda/txn.h>
 
 int txn_findbyid(dhanda *app, int id, txn *result)
 {
@@ -23,28 +24,36 @@ int txn_search(dhanda *app, char *query, struct list *result)
 	int matched = -1;
 
 	while(fread(&temp, sizeof(temp), 1, app->txn_fp) > 0) {
-		if (strcmp(temp->cat, query) == 0)
-		{
+		/* @TODO */
+		/*
+		if (strcmp(temp.cat, query) == 0) {
 			matched = 0;
 			break;
 		}
+		*/
 	}
-	return matched;
 
+	return matched;
 }
 
 int txn_findbytype(dhanda *app, int type, struct list *result)
 {	
-	int matched = -1;
+	txn temp;
+	int count;
+	Node *n;
 
-	while(fread(result, sizeof(txn), 1, app->txn_fp)>0){
-		if (type == result->type)
+	count = 0;
+	while(fread(&temp, sizeof(txn), 1, app->txn_fp)>0) {
+
+		if (type == temp.type)
 		{
-			matched = 0;
-			break;
+			n = list_new_node(result, &temp);
+			list_insert_end(result, n);
+			count++;
 		}
 	}
-	return matched;
+
+	return count;
 }
 
 int txn_get(dhanda *app, txn_filter filter, struct list *result)

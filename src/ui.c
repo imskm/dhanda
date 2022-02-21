@@ -4,8 +4,6 @@
 void
 ui_home(dhanda *app)
 {
-	ui_party_list(app);
-	return;
 	int txn = 567,
 		amount = 12399,
 		party = 56,
@@ -88,7 +86,9 @@ void ui_party_edit(struct dhanda *app)
 	puts("");
 }
 
-void ui_txn_list(struct dhanda *app);
+void ui_txn_list(struct dhanda *app)
+{
+}
 
 
 void ui_txn_show(struct dhanda *app)
@@ -118,4 +118,8 @@ void ui_txn_create(struct dhanda *app)
 	printf("DEBITED  :  %d\n\n", debit);
 	printf("CREDITED :  %d\n\n", credit);
 	puts("");
+}
+
+void ui_party_delete(struct dhanda *app)
+{
 }

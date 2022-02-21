@@ -4,7 +4,11 @@
 #include <dhanda/dhanda.h>
 
 typedef struct party {
-	// @TODO
+	int id;
+	char fname[32];
+	char lname[32];
+	char phone[12];
+	int amount;
 } party;
 
 typedef struct party_filter {

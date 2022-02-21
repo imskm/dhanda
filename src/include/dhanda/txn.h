@@ -4,7 +4,11 @@
 #include <dhanda/dhanda.h>
 
 typedef struct txn {
-	// @TODO
+	int id;
+	int amount;
+	time_t cat;
+	int type;
+	char desc[256];
 } txn;
 
 typedef struct txn_stat {

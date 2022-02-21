@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 	line = app.cmd.cmdline;
 	dhanda_init_app(&app);
 
-	dhanda_command_party_ui(&app);
+	ui_home(&app);
 	while (!quit) {
 		/* 1. Show command line help for the current screen */
 		dhanda_app_print_helpline(&app);
@@ -157,8 +157,6 @@ dhanda_command_party_ui(dhanda *app)
 	/* Set party context (since user entered in party screen) to perform
 	 * operations on party */
 	app->context = SCREEN_PARTY;
-
-	printf("PARTY UI\n");
 }
 
 static void
