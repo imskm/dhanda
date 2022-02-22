@@ -274,34 +274,165 @@ dhanda_command_add(dhanda *app)
 static void
 dhanda_command_list(dhanda *app)
 {
+	party_filter pfilter = {
+		.page=1, .items=10,
+	};
+	txn_filter tfilter = {
+		.page=1, .items=10,
+	};
+
+	switch (app->context) {
+		case SCREEN_PARTY:
+			party_get(app, pfilter, app->party_list);
+			break;
+
+		case SCREEN_TXN:
+			txn_get(app, tfilter, app->txn_list);
+			break;
+	}
 }
 
 static void
 dhanda_command_show(dhanda *app)
 {
+	party p;
+	txn t;
+	Node *node;
+	int id;
+
+	assert(app->cmd.argc == 2);
+
+	id = atoi(app->cmd.argv[1]);
+	switch (app->context) {
+		case SCREEN_PARTY:
+			party_findbyid(app, id, &p);
+			node = list_new_node(app->party_list, (void *) &p);
+			list_insert_end(app->party_list, node);
+			break;
+
+		case SCREEN_TXN:
+			txn_findbyid(app, id, &t);
+			node = list_new_node(app->txn_list, (void *) &t);
+			list_insert_end(app->txn_list, node);
+			break;
+	}
 }
 
 static void
 dhanda_command_edit(dhanda *app)
 {
+	int id, ret;
+	party p, *new_party;
+	Node *node;
+
+	assert(app->cmd.argc == 2);
+
+	id = atoi(app->cmd.argv[1]);
+	switch (app->context) {
+		case SCREEN_PARTY:
+			ret = party_findbyid(app, id, &p);
+			if (ret == -1) {
+				fprintf(stderr, "party_findbyid error\n");
+				return;
+			} else if (ret == 0) {
+				fprintf(stderr, "party '%d' not found\n", id);
+				return;
+			}
+			node = list_new_node(app->party_list, (void *) &p);
+			list_insert_end(app->party_list, node);
+			ui_party_edit(app);
+
+			new_party = (party *) app->party_list->head->data;
+			ret = party_update(app, &p, new_party);
+			if (ret == -1) {
+				fprintf(stderr, "party_udpate error\n");
+				return;
+			}
+
+			break;
+		/* @NOTE Edit for TXN is not allowed */
+		default:
+			/* @TODO Remove it latter */
+			fprintf(stderr, "EDITING TXN NOT ALLOWED\n");
+			break;
+	}
 }
 
 static void
 dhanda_command_delete(dhanda *app)
 {
+	int id, ret;
+	party p, *new_party;
+	Node *node;
+
+	assert(app->cmd.argc == 2);
+
+	id = atoi(app->cmd.argv[1]);
+	switch (app->context) {
+		case SCREEN_PARTY:
+			ret = party_findbyid(app, id, &p);
+			if (ret == -1) {
+				fprintf(stderr, "party_findbyid error\n");
+				return;
+			} else if (ret == 0) {
+				fprintf(stderr, "party '%d' not found\n", id);
+				return;
+			}
+			node = list_new_node(app->party_list, (void *) &p);
+			list_insert_end(app->party_list, node);
+			ui_party_delete(app);
+			ret = party_delete(app, &p);
+			if (ret == -1) {
+				fprintf(stderr, "party_delete error\n");
+				return;
+			}
+
+			/* @TODO Delete all txns of party p */
+
+			break;
+		/* @NOTE Edit for TXN is not allowed */
+		default:
+			/* @TODO Remove it latter */
+			fprintf(stderr, "EDITING TXN NOT ALLOWED\n");
+			break;
+	}
 }
 
 static void
 dhanda_command_search(dhanda *app)
 {
+	int ret;
+	char *query;
+
+	assert(app->cmd.argc == 2);
+
+	query = app->cmd.argv[1];
+	switch (app->context) {
+		case SCREEN_PARTY:
+			ret = party_search(app, query, app->party_list);
+			if (ret == -1) {
+				fprintf(stderr, "party_findbyid error\n");
+				return;
+			} else if (ret == 0) {
+				fprintf(stderr, "No match for query '%s' found\n", query);
+				return;
+			}
+
+			break;
+		/* @NOTE Edit for TXN is not allowed */
+		case SCREEN_TXN:
+			/* @TODO What will be the query for txn? */
+			fprintf(stderr, "(TODO)\n");
+			break;
+	}
 }
 
 static void
 dhanda_resolve_add_renderer(dhanda *app)
 {
 	switch (app->context) {
-		case SCREEN_PARTY: 	app->renderer = ui_party_create; break;
-		case SCREEN_TXN: 	app->renderer = ui_txn_create; break;
+		case SCREEN_PARTY: 	app->renderer = ui_party_show; break;
+		case SCREEN_TXN: 	app->renderer = ui_txn_show; break;
 		default: app->renderer = NULL;
 	}
 }
@@ -340,7 +471,7 @@ static void
 dhanda_resolve_edit_renderer(dhanda *app)
 {
 	switch (app->context) {
-		case SCREEN_PARTY: 	app->renderer = ui_party_edit; break;
+		case SCREEN_PARTY: 	app->renderer = ui_party_show; break;
 		default: app->renderer = NULL;
 	}
 }
@@ -349,7 +480,7 @@ static void
 dhanda_resolve_delete_renderer(dhanda *app)
 {
 	switch (app->context) {
-		case SCREEN_PARTY: 	app->renderer = ui_party_delete; break;
+		case SCREEN_PARTY: 	app->renderer = ui_party_list; break;
 		default: app->renderer = NULL;
 	}
 }
