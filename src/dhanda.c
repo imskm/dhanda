@@ -4,8 +4,8 @@
 #include <dhanda/txn.h>
 
 /* Theses functions are like controller */
-static void dhanda_command_party_ui(dhanda *app);
-static void dhanda_command_txn_ui(dhanda *app);
+static void dhanda_command_party_home(dhanda *app);
+static void dhanda_command_txn_home(dhanda *app);
 static void dhanda_command_exit(dhanda *app);
 static void dhanda_command_add(dhanda *app);
 static void dhanda_command_list(dhanda *app);
@@ -28,10 +28,10 @@ static struct {
 	void (*handle)(dhanda *);
 	void (*renderer)(dhanda *);
 } commands[] = {
-	{ "p", 				dhanda_command_party_ui, 	ui_party_list },
-	{ "party", 			dhanda_command_party_ui, 	ui_party_list },
-	{ "t", 				dhanda_command_txn_ui, 		ui_txn_list },
-	{ "txn", 			dhanda_command_txn_ui, 		ui_txn_list },
+	{ "p", 				dhanda_command_party_home, 	ui_party_list },
+	{ "party", 			dhanda_command_party_home, 	ui_party_list },
+	{ "t", 				dhanda_command_txn_home, 		ui_txn_list },
+	{ "txn", 			dhanda_command_txn_home, 		ui_txn_list },
 	{ "back", 			dhanda_command_back },
 
 	/* Theses commands are contextual based (meaning theses commands are
@@ -81,6 +81,7 @@ int main(int argc, char *argv[])
 		/* 4. Render the screen */
 		if (!quit) {
 			dhanda_app_render(&app);
+			/* @TODO Clean up the app state, so that renderer can render correct data on screen */
 		}
 	}
 	//ui_party_list(&app);
@@ -144,10 +145,13 @@ dhanda_app_cmd_handle(dhanda *app)
 void
 dhanda_app_render(dhanda *app)
 {
+	if (app->renderer) {
+		app->renderer(app);
+	}
 }
 
 static void
-dhanda_command_party_ui(dhanda *app)
+dhanda_command_party_home(dhanda *app)
 {
 	party_filter filter = {
 		.page=1,
@@ -160,10 +164,14 @@ dhanda_command_party_ui(dhanda *app)
 }
 
 static void
-dhanda_command_txn_ui(dhanda *app)
+dhanda_command_txn_home(dhanda *app)
 {
-	ui_txn_list(app);
-	printf("TRANSACTION UI\n");
+	txn_filter filter = {
+		.page=1,
+		.items=10,
+	};
+	txn_get(app, filter, app->txn_list);
+	app->context = SCREEN_TXN;
 }
 
 static void
@@ -181,6 +189,21 @@ dhanda_command_exit(dhanda *app)
 static void
 dhanda_command_add(dhanda *app)
 {
+	party *p;
+
+	switch (app->context) {
+		case SCREEN_PARTY:
+			ui_party_create(app);
+
+			party_add(app, &p);
+			/* @TODO Add this party in app->party_list */
+			break;
+
+		case SCREEN_TXN:
+			ui_txn_create(app);
+			party_add(app, &p);
+			break;
+	}
 }
 
 static void

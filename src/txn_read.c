@@ -58,5 +58,23 @@ int txn_findbytype(dhanda *app, int type, struct list *result)
 
 int txn_get(dhanda *app, txn_filter filter, struct list *result)
 {
-	
+	txn temp;
+	Node *node;
+	int count, offset;
+
+	count = 0;
+	offset = (filter.page - 1) * filter.items * sizeof(txn);
+	fseek(app->txn_fp, -offset, SEEK_END);
+
+	while (fread(&temp, sizeof(temp), 1, app->txn_fp) > 0) {
+		if (count >= filter.items)
+			break;
+
+		node = list_new_node(result, (void *) &temp);
+		if (node == NULL)
+			break;
+		list_insert_end(result, node);
+	}
+
+	return count;
 }
