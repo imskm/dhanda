@@ -28,22 +28,23 @@ static struct {
 	char *cmd;
 	void (*handle)(dhanda *);
 	void (*renderer)(dhanda *);
+	int  resolver;
 } commands[] = {
-	{ "p", 				dhanda_command_party_home, 	ui_party_list },
-	{ "party", 			dhanda_command_party_home, 	ui_party_list },
-	{ "t", 				dhanda_command_txn_home, 		ui_txn_list },
-	{ "txn", 			dhanda_command_txn_home, 		ui_txn_list },
+	{ "p", 				dhanda_command_party_home, 	ui_party_list, 0 },
+	{ "party", 			dhanda_command_party_home, 	ui_party_list, 0 },
+	{ "t", 				dhanda_command_txn_home, 		ui_txn_list, 0 },
+	{ "txn", 			dhanda_command_txn_home, 		ui_txn_list, 0 },
 	{ "back", 			dhanda_command_back },
 
 	/* Theses commands are contextual based (meaning theses commands are
 	 * same for other screens), so it will inspect which function to call
 	 * based on context inside which it is run */
-	{ "add", 			dhanda_command_add, 		dhanda_resolve_add_renderer },
-	{ "list", 			dhanda_command_list, 		dhanda_resolve_list_renderer },
-	{ "show", 			dhanda_command_show, 		dhanda_resolve_show_renderer },
-	{ "search", 		dhanda_command_search, 		dhanda_resolve_search_renderer },
-	{ "edit", 			dhanda_command_edit, 		dhanda_resolve_edit_renderer },
-	{ "delete", 		dhanda_command_delete, 		dhanda_resolve_delete_renderer },
+	{ "add", 			dhanda_command_add, 		dhanda_resolve_add_renderer, 1 },
+	{ "list", 			dhanda_command_list, 		dhanda_resolve_list_renderer, 1 },
+	{ "show", 			dhanda_command_show, 		dhanda_resolve_show_renderer, 1 },
+	{ "search", 		dhanda_command_search, 		dhanda_resolve_search_renderer, 1 },
+	{ "edit", 			dhanda_command_edit, 		dhanda_resolve_edit_renderer, 1 },
+	{ "delete", 		dhanda_command_delete, 		dhanda_resolve_delete_renderer, 1 },
 
 
 	{ "exit", 				dhanda_command_exit },
@@ -195,7 +196,10 @@ dhanda_app_cmd_handle(dhanda *app)
 {
 	for (int i = 0; commands[i].cmd; ++i) {
 		if (strcmp(app->cmd.argv[0], commands[i].cmd) == 0) {
-			app->renderer = commands[i].renderer;
+			if (commands[i].resolver)
+				commands[i].renderer(app);
+			else
+				app->renderer = commands[i].renderer;
 			commands[i].handle(app);
 			return;
 		}
