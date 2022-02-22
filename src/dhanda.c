@@ -2,6 +2,7 @@
 #include <dhanda/ui.h>
 #include <dhanda/party.h>
 #include <dhanda/txn.h>
+#include <dhanda/cursor.h>
 
 /* Theses functions are like controller */
 static void dhanda_command_party_home(dhanda *app);
@@ -95,7 +96,68 @@ int main(int argc, char *argv[])
 void
 dhanda_init_app(struct dhanda *app)
 {
+	int ret;
+	struct stat buf;
+	struct passwd *pw;
+	char base_path[256], party_filepath[256], txn_filepath[256];
+
+	/* Setup data storage directory (in user's home dir) */
+	if ((pw = getpwuid(getuid())) == NULL) {
+		perror("getpwuid error");
+		exit(EXIT_FAILURE);
+	}
+	/* @DANGEROUS BUFFER OVERFLOW upto below */
+	strcpy(base_path, pw->pw_dir);
+	strcat(base_path, "/");
+	strcat(base_path, DHANDA_DATA_STORAGE);
+	if ((ret = stat(base_path, &buf)) == -1 && errno == ENOENT) {
+		if (mkdir(base_path, 0700) == -1) {
+			perror("mkdir error");
+			exit(EXIT_FAILURE);
+		}
+	} else if (ret == -1) {
+		perror("Storage create error");
+		exit(EXIT_FAILURE);
+	}
+
 	app->context = SCREEN_HOME;
+
+	strcpy(party_filepath, base_path);
+	strcat(party_filepath, "/");
+	strcat(party_filepath, DHANDA_PARTY_DB_FILE);
+
+	strcpy(txn_filepath, base_path);
+	strcat(txn_filepath, "/");
+	strcat(txn_filepath, DHANDA_TXN_DB_FILE);
+
+	app->party_fp = fopen(party_filepath, "r+b");
+	app->txn_fp   = fopen(txn_filepath, "r+b");
+
+	if (app->party_fp == NULL && errno == ENOENT)
+		app->party_fp = fopen(party_filepath, "w+b");
+	if (app->txn_fp == NULL && errno == ENOENT)
+		app->txn_fp = fopen(txn_filepath, "w+b");
+
+	if (app->party_fp == NULL) {
+		fprintf(stderr, "Error in file '%s': %s\n", party_filepath, strerror(errno));
+		exit(EXIT_FAILURE);
+	}
+	if (app->txn_fp == NULL) {
+		fprintf(stderr, "Error in file '%s': %s\n", txn_filepath, strerror(errno));
+		exit(EXIT_FAILURE);
+	}
+
+	app->party_list = list_create(sizeof(party));
+	app->txn_list 	= list_create(sizeof(txn));
+
+	if (app->party_list == NULL) {
+		perror("Failed to create party list");
+		exit(EXIT_FAILURE);
+	}
+	if (app->txn_list == NULL) {
+		perror("Failed to create txn list");
+		exit(EXIT_FAILURE);
+	}
 }
 
 void
@@ -145,6 +207,8 @@ dhanda_app_cmd_handle(dhanda *app)
 void
 dhanda_app_render(dhanda *app)
 {
+	/* Clear the screen */
+	clear();
 	if (app->renderer) {
 		app->renderer(app);
 	}
@@ -189,7 +253,8 @@ dhanda_command_exit(dhanda *app)
 static void
 dhanda_command_add(dhanda *app)
 {
-	party *p;
+	party p;
+	txn t;
 
 	switch (app->context) {
 		case SCREEN_PARTY:
@@ -201,7 +266,7 @@ dhanda_command_add(dhanda *app)
 
 		case SCREEN_TXN:
 			ui_txn_create(app);
-			party_add(app, &p);
+			txn_add(app, &t);
 			break;
 	}
 }

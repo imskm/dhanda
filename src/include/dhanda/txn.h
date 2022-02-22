@@ -9,6 +9,7 @@ typedef struct txn {
 	time_t cat;
 	int type;
 	char desc[256];
+	int party_id;
 } txn;
 
 typedef struct txn_stat {

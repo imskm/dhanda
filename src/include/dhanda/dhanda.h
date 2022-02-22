@@ -6,12 +6,20 @@
 #include <stdlib.h>
 #include <time.h>
 #include <assert.h>
+#include <errno.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <pwd.h>
 
 #include <dhanda/list.h>
 #include <dhanda/util.h>
 
 #define MAXLINE 1000
 #define MAXCMDARG 32
+#define DHANDA_DATA_STORAGE ".dhanda"
+#define DHANDA_PARTY_DB_FILE "party.db"
+#define DHANDA_TXN_DB_FILE "txn.db"
 
 enum context {
 	SCREEN_HOME = 1,
