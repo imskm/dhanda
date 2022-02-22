@@ -49,7 +49,7 @@ int party_get(dhanda *app, party_filter filter, struct list *result)
 			break;
 			
 		node = list_new_node(result, (void *) &temp);
-		list_inser_end(result, node);
+		list_insert_end(result, node);
 		
 		if(node == NULL) 
 			break;
