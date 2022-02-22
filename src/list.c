@@ -21,7 +21,7 @@ Node *list_new_node(List *list, void *data)
 	void *d;
 	Node *node;
 
-	d = malloc(sizeof(ds));
+	d = malloc(ds);
 	if (d) {
 		memcpy(d, data, ds);
 	}
