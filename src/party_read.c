@@ -41,18 +41,19 @@ int party_get(dhanda *app, party_filter filter, struct list *result)
 	party temp;
 	int count = 0, ds = list->dsize;
 	Node *node;
-	
-	
+
+
 	while(fread(&temp, sizeof(temp), 1, app->party_fp) > 0) {
+			node = list_new_node(list, temp.fname);
+			list_insert_end(list, node);
+			count++;
+
 		if(result->head == NULL) {
 			list = list_create(ds);
 			result->head = list_new_node(list, temp.fname);
 			count++;
 		}
 		else {
-			node = list_new_node(list, temp.fname);
-			list_insert_end(list, node);
-			count++;
 		}
 	}
 	filter.items =  result->count = count;
