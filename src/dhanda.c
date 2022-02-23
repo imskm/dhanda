@@ -63,6 +63,7 @@ int main(int argc, char *argv[])
 	line = app.cmd.cmdline;
 	dhanda_init_app(&app);
 
+	clear();
 	ui_home(&app);
 	while (!quit) {
 		/* 1. Show command line help for the current screen */
@@ -164,10 +165,19 @@ dhanda_init_app(struct dhanda *app)
 void
 dhanda_app_print_helpline(dhanda *app)
 {
-	/* @TODO According to screen context print correct command help line */
+	/* @TODO Improve it. This is not the right way. Build a better structure to store
+	 * all the relevent commands for the appropriate context in one central place and
+	 * use that struct (like commands) to show it here */
 	printf("CMD: ");
-	printf("p[arty]    t[xn]");
-	puts("");
+	if (app->context == SCREEN_HOME)
+		printf("p[arty]    t[xn]");
+	else if (app->context == SCREEN_PARTY)
+		printf("p[arty]    t[xn]    add    list    show party_id    edit party_id    delete party_id    search query");
+	else if (app->context == SCREEN_TXN)
+		printf("p[arty]    t[xn]    add    list    show txn_id    search query");
+	else
+		printf("**UNKNOWN SCREEN**\n");
+	puts("\n");
 	printf("> ");
 }
 
