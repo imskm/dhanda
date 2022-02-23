@@ -15,11 +15,12 @@ int party_findbyid(dhanda *app, int id, party *result)
 		}
 	}
 	if(matched == 0) {
-		if(ferror(app->party) 
+		if(ferror(app->party_fp))
 			matched = -1;
 		
 		else
 			matched = 0;
+	}
 		
 	return matched;
 }
