@@ -240,9 +240,11 @@ dhanda_app_render(dhanda *app)
 	if (app->renderer) {
 		app->renderer(app);
 	}
+
+	cur_tobottom();
+	cur_up(3);
 	/* Show command line help for the current screen */
 	dhanda_app_print_helpline(app);
-
 }
 
 static void
