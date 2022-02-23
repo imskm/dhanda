@@ -69,7 +69,9 @@ int main(int argc, char *argv[])
 	dhanda_app_render(&app);
 	while (!quit) {
 		/* 1. Read command line input */
+		start_cmdline_color();
 		len = get_line(line, MAXLINE);
+		end_cmdline_color();
 		app.cmd.cmdline_len = len;
 		if (len >= MAXLINE) {
 			fprintf(stderr, "Error: command line is unexpectedly long.\n");
@@ -192,7 +194,9 @@ dhanda_app_print_helpline(dhanda *app)
 	else
 		printf("**UNKNOWN SCREEN**\n");
 	puts("\n");
+	start_cmdline_color();
 	printf("> ");
+	end_cmdline_color();
 }
 
 void
