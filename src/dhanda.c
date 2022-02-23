@@ -65,13 +65,10 @@ int main(int argc, char *argv[])
 	line = app.cmd.cmdline;
 	dhanda_init_app(&app);
 
-	clear();
-	ui_home(&app);
+	/* @NOTE REPL (Read-Eval-Print-Loop) */
+	dhanda_app_render(&app);
 	while (!quit) {
-		/* 1. Show command line help for the current screen */
-		dhanda_app_print_helpline(&app);
-
-		/* 2. Read command line input */
+		/* 1. Read command line input */
 		len = get_line(line, MAXLINE);
 		app.cmd.cmdline_len = len;
 		if (len >= MAXLINE) {
@@ -80,10 +77,10 @@ int main(int argc, char *argv[])
 		}
 		dhanda_parse_cmd_line(&app.cmd);
 
-		/* 3. Handle the command (Update app logic) */
+		/* 2. Handle the command (Update app logic) */
 		dhanda_app_cmd_handle(&app);
 
-		/* 4. Render the screen */
+		/* 3. Render the screen */
 		if (!quit) {
 			dhanda_app_render(&app);
 			dhanda_app_reset(&app);
@@ -162,6 +159,9 @@ dhanda_init_app(struct dhanda *app)
 		perror("Failed to create txn list");
 		exit(EXIT_FAILURE);
 	}
+
+	/* Setup inital app renderer (the home screen) */
+	app->renderer = ui_home;
 }
 
 void
@@ -240,6 +240,9 @@ dhanda_app_render(dhanda *app)
 	if (app->renderer) {
 		app->renderer(app);
 	}
+	/* Show command line help for the current screen */
+	dhanda_app_print_helpline(app);
+
 }
 
 static void
