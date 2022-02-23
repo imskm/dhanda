@@ -39,6 +39,7 @@ void list_insert_end(List *list, Node *node)
 {
 	Node *ptr;
 
+	list->count += 1;
 	if (list->head == NULL) {
 		list->head = node;
 		return;
@@ -52,4 +53,25 @@ void list_insert_end(List *list, Node *node)
 	ptr->next = node;
 }
 
+void list_delete_front(List *list)
+{
+	Node *ptr;
+
+	ptr = list->head;
+	if (ptr == NULL)
+		return;
+
+	list->head = ptr->next;
+	list->count -= 1;
+
+	free(ptr->data);
+	free(ptr);
+}
+
+void list_delete_all(List *list)
+{
+	while (list->head) {
+		list_delete_front(list);
+	}
+}
 

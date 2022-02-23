@@ -26,9 +26,11 @@ List *list_create(int dsize);
 Node *list_new_node(List *list, void *data);
 void list_insert_end(List *list, Node *node);
 void list_print(List *list);
+void list_delete_front(List *list);
+void list_delete_all(List *list);
+
 
 /* @TODO */
-Node *list_delete_front(Node *head);
 Node *list_insert_front(Node *head, Node *node);
 
 
