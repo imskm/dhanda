@@ -6,14 +6,21 @@
 
 int party_findbyid(dhanda *app, int id, party *result)
 {
-	int matched = -1;
+	int matched = 0;
 	
 	while(fread(result, sizeof(party), 1, app->party_fp) > 0) {
 		if(id == result->id) {
-			matched = 0;
+			matched = 1;
 			break;
 		}
 	}
+	if(matched == 0) {
+		if(ferror(app->party) 
+			matched = -1;
+		
+		else
+			matched = 0;
+		
 	return matched;
 }
 
@@ -21,17 +28,22 @@ int party_findbyid(dhanda *app, int id, party *result)
 int party_search(dhanda *app, char *query, struct list *result)
 {
 	party temp;
-	int matched = -1;
+	Node *node;
+	int matched = 0;
 	
 	
 	while(fread(&temp, sizeof(temp), 1, app->party_fp) > 0) {
-		if(strcmp(temp.phone, query) == 0) {
-			matched = 0;
-			break;
+		if(strstr(temp.phone, query)) {
+			matched = 1;
+			node = list_new_node(result, (void *) &temp);
+			list_insert_end(result, node);
 		}
+		
+		if(!node)
+			break;
 	}
-	
 	return matched;
+	
 }
 			
 
@@ -50,10 +62,10 @@ int party_get(dhanda *app, party_filter filter, struct list *result)
 			
 		node = list_new_node(result, (void *) &temp);
 		list_insert_end(result, node);
+		count++;
 		
-		if(node == NULL) 
+		if(!node) 
 			break;
-		list_insert_end(result, node);
 	}
 	
 	return count;
