@@ -23,6 +23,8 @@ static void dhanda_resolve_search_renderer(dhanda *app);
 static void dhanda_resolve_edit_renderer(dhanda *app);
 static void dhanda_resolve_delete_renderer(dhanda *app);
 
+void dhanda_app_reset(dhanda *app);
+
 
 static struct {
 	char *cmd;
@@ -84,7 +86,7 @@ int main(int argc, char *argv[])
 		/* 4. Render the screen */
 		if (!quit) {
 			dhanda_app_render(&app);
-			/* @TODO Clean up the app state, so that renderer can render correct data on screen */
+			dhanda_app_reset(&app);
 		}
 	}
 	//ui_party_list(&app);
@@ -160,6 +162,18 @@ dhanda_init_app(struct dhanda *app)
 		perror("Failed to create txn list");
 		exit(EXIT_FAILURE);
 	}
+}
+
+void
+dhanda_app_cleanup(dhanda *app)
+{
+}
+
+void
+dhanda_app_reset(dhanda *app)
+{
+	list_delete_all(app->party_list);
+	list_delete_all(app->txn_list);
 }
 
 void
