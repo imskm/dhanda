@@ -2,9 +2,7 @@
 #include<dhanda/party.h>
 
 int party_add(dhanda *app, party *party)
-
 {
-
       int cur_pos = 0 , final_pos = 0;
 
       fseek(app->party_fp, 0, SEEK_END);
