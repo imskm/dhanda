@@ -295,15 +295,19 @@ dhanda_command_add(dhanda *app)
 
 	switch (app->context) {
 		case SCREEN_PARTY:
+			/* Insert blank party in the list that will be used by ui_party_create
+			 * to populate party details (read from user) and then that party present
+			 * in the linked list will be usded to pass that to party_add function
+			 * to store that in DB. Same goes for transaction below */
+			party_insert_in_list(app, &p);
 			ui_party_create(app);
-
-			party_add(app, &p);
-			/* @TODO Add this party in app->party_list */
+			party_add(app, party_first_in_list(app));
 			break;
 
 		case SCREEN_TXN:
+			txn_insert_in_list(app, &t);
 			ui_txn_create(app);
-			txn_add(app, &t);
+			txn_add(app, txn_first_in_list(app));
 			break;
 	}
 }
@@ -336,21 +340,23 @@ dhanda_command_show(dhanda *app)
 	txn t;
 	Node *node;
 	int id;
+	int ret;
 
 	assert(app->cmd.argc == 2);
 
 	id = atoi(app->cmd.argv[1]);
 	switch (app->context) {
 		case SCREEN_PARTY:
-			party_findbyid(app, id, &p);
-			node = list_new_node(app->party_list, (void *) &p);
-			list_insert_end(app->party_list, node);
+			ret = party_findbyid(app, id, &p);
+			assert(ret == 1);
+
+			party_insert_in_list(app, &p);
 			break;
 
 		case SCREEN_TXN:
-			txn_findbyid(app, id, &t);
-			node = list_new_node(app->txn_list, (void *) &t);
-			list_insert_end(app->txn_list, node);
+			ret = txn_findbyid(app, id, &t);
+			assert(ret == 1);
+			txn_insert_in_list(app, &t);
 			break;
 	}
 }
@@ -375,11 +381,13 @@ dhanda_command_edit(dhanda *app)
 				fprintf(stderr, "party '%d' not found\n", id);
 				return;
 			}
-			node = list_new_node(app->party_list, (void *) &p);
-			list_insert_end(app->party_list, node);
+			party_insert_in_list(app, &p);
+			/* This second insert will be treated as blank party (new_party) */
+			party_insert_in_list(app, &p);
+
 			ui_party_edit(app);
 
-			new_party = (party *) app->party_list->head->data;
+			new_party = party_second_in_list(app);
 			ret = party_update(app, &p, new_party);
 			if (ret == -1) {
 				fprintf(stderr, "party_udpate error\n");
@@ -415,8 +423,7 @@ dhanda_command_delete(dhanda *app)
 				fprintf(stderr, "party '%d' not found\n", id);
 				return;
 			}
-			node = list_new_node(app->party_list, (void *) &p);
-			list_insert_end(app->party_list, node);
+			party_insert_in_list(app, &p);
 			ui_party_delete(app);
 			ret = party_delete(app, &p);
 			if (ret == -1) {
