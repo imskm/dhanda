@@ -1,11 +1,12 @@
 # Dhanda
 
 A small and basic (atleast for initial release) business transaction tracking application for business owner (mostly for small business, retailers and shop keepers) of any business type.
-In this app you can:
 
 This application (for now) is written entirely in `C Language` and only `Unix` based platform (Linux, MacOS, FreeBSD etc.) are supported.
 
 This is (for now) a terminal based interactive application.
+
+In this app you can:
 
 - Add party details
 - Search party by name and phone number
