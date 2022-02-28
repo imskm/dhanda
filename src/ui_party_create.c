@@ -5,16 +5,30 @@
 
 void ui_party_create(struct dhanda *app)
 {
-	long int phone = 9748538411,
+	/*long int phone = 9748538411,
 		amount = 10000;
 	char fname[64] = "Safwan", lname[64] = "Haider";
+	*/
 
+	struct party_create {
+		char fname[64];
+		char lname[64];
+		long int phone,amount;
 
+	}
+	
 	printf("CREATE....\n\n");
-	printf("FIRST NAME :  %s\n\n", fname);
-	printf("LAST NAME  :  %s\n\n", lname);
-	printf("PHONE      :  %ld\n\n", phone);
-	printf("AMOUNT     :  %ld\n\n", amount);
+	printf("FIRST NAME :  ");
+	scanf("%s", );
+	printf("LAST NAME  :  ");
+	scanf("%s", );
+
+	printf("PHONE      :  ");
+	scanf("%ld");
+
+	printf("AMOUNT     :  ");
+	scanf("%ld");
+
 	puts("");
 }
 
