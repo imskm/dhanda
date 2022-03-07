@@ -5,16 +5,22 @@
 
 void ui_party_show(struct dhanda *app)
 {
-	char name[64] = "Safwan", addrr[64] = "Kankinara";
-	long int phone = 9748538411;
-	int year = 2010;
+	int id;
+	char fname[32];
+	char lname[32];
+	char phone[12];
+	int amount;
+	ptr = ptr->app->party_list->head;
+	while(!ptr){
+		p = (party *) ptr->data;
+		printf("PARTY :------%s", p->fname);
+		printf("\n\n");
+		printf("PHONE : %ld\n\n", p->phone);
+		
+		printf(" ID : %d\n\n", p->id);
 
-	printf("PARTY :------%s", name);
-	printf("\n\n");
-	printf("PHONE : %ld\n\n", phone);
-	printf("PLACE : %s\n\n", addrr);
-	printf("Joined \n");
-	printf(" Year : %d\n\n", year);
-	puts("");
+	}
+
+
 
 }
