@@ -15,7 +15,7 @@ void ui_party_list(struct dhanda *app)
 	ptr = app->party_list->head;
 	printf("PARTY......\n\n");
 	printf("ID   NAME                 AMOUNT");
-	while(!ptr){
+	while (ptr) {
 		p = (party *) ptr->data;
 		printf("%-5d %-20s %-10d ", p->id, p->fname, p->amount);
 		ptr = ptr->next;

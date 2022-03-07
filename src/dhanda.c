@@ -71,6 +71,8 @@ int main(int argc, char *argv[])
 		/* 1. Read command line input */
 		start_cmdline_color();
 		len = get_line(line, MAXLINE);
+		/* @NOTE Empty line */
+		if (len == 1) continue;
 		end_cmdline_color();
 		app.cmd.cmdline_len = len;
 		if (len >= MAXLINE) {
@@ -246,6 +248,7 @@ dhanda_app_render(dhanda *app)
 	}
 
 	cur_tobottom();
+	cur_toleft();
 	cur_up(3);
 	/* Show command line help for the current screen */
 	dhanda_app_print_helpline(app);
@@ -297,15 +300,13 @@ dhanda_command_add(dhanda *app)
 		case SCREEN_PARTY:
 			/* Insert blank party in the list that will be used by ui_party_create
 			 * to populate party details (read from user) and then that party present
-			 * in the linked list will be usded to pass that to party_add function
+			 * in the linked list will be used to pass that to party_add function
 			 * to store that in DB. Same goes for transaction below */
-			party_insert_in_list(app, &p);
 			ui_party_create(app);
 			party_add(app, party_first_in_list(app));
 			break;
 
 		case SCREEN_TXN:
-			txn_insert_in_list(app, &t);
 			ui_txn_create(app);
 			txn_add(app, txn_first_in_list(app));
 			break;
