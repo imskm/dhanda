@@ -22,3 +22,14 @@ int get_line(char line[], int size)
 	return i;
 }
 
+int
+get_string(char line[], int size)
+{
+	int len;
+
+	len = get_line(line, size);
+	line[len - 1] = '\0';
+
+	return len - 1;
+}
+

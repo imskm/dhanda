@@ -21,5 +21,6 @@
 #define end_cmdline_color()   printf(ANSI_RESET); fflush(stdout);
 
 int get_line(char line[], int size);
+int get_string(char line[], int size);
 
 #endif
