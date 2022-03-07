@@ -12,12 +12,13 @@ void ui_party_list(struct dhanda *app)
 	int type;
 	char desc[256];
 	int party_id;
-	ptr = ptr->app->party_list->head;
+	ptr = app->party_list->head;
+	printf("PARTY......\n\n");
+	printf("ID   NAME                 AMOUNT");
 	while(!ptr){
 		p = (party *) ptr->data;
-	printf("PARTY......\n\n");
-	printf("ID   NAME                 TXN        DEBIT      CREDIT     ");
-	printf("%-5d %-20s %-10d %-10d %-10d", p->id, p->name, p->amount, p->type);
-	ptr = ptr->next;
+		printf("%-5d %-20s %-10d ", p->id, p->fname, p->amount);
+		ptr = ptr->next;
+	}
 }
 
