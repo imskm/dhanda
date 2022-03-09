@@ -67,7 +67,7 @@ int party_get(dhanda *app, party_filter filter, struct list *result)
 		list_insert_end(result, node);
 		count++;
 		
-		if(!node) 
+		if(node == NULL) 
 			break;
 	}
 	
