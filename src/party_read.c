@@ -55,8 +55,9 @@ int party_get(dhanda *app, party_filter filter, struct list *result)
 	int count = 0, offset;
 	Node *node;
 	
-	offset = (filter.page - 1) * filter.items * sizeof(party);
-	fseek(app->party_fp, offset * -1, SEEK_END);
+	//offset = (filter.page - 1) * filter.items * sizeof(party);
+	//fseek(app->party_fp, offset * -1, SEEK_END);
+	fseek(app->party_fp, 0, SEEK_SET);
 	while(fread(&temp, sizeof(temp), 1, app->party_fp) > 0) {
 		if(count >= filter.items)
 			break;
