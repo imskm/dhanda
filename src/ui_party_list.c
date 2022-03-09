@@ -13,11 +13,11 @@ void ui_party_list(struct dhanda *app)
 	char desc[256];
 	int party_id;
 	ptr = app->party_list->head;
-	printf("PARTY......\n\n");
-	printf("ID   NAME                 AMOUNT");
-	while(!ptr){
+	printf("DHANDA > PARTY LIST\n\n");
+	printf("%-5s %-20s %-20s %-15s %-10s", "ID", "FNAME", "LNAME", "AMOUNT", "PHONE");
+	while(ptr){
 		p = (party *) ptr->data;
-		printf("%-5d %-20s %-10d ", p->id, p->fname, p->amount);
+		printf("%-5d %-20s %-20s %-15d %-10s", p->id, p->fname, p->lname, p->amount, p->phone);
 		ptr = ptr->next;
 	}
 }
