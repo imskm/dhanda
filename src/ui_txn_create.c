@@ -5,13 +5,26 @@
 
 void ui_txn_create(struct dhanda *app)
 {
-	char name[64] = "Safwan";
-	int debit = 1000, credit = 0;
+	txn t;
+	char line[256], ch;
+	int len;
 
 	printf("TRANSACTION - CREATE\n\n");
-	printf("NAME     :  %s\n\n", name);
-	printf("DEBITED  :  %d\n\n", debit);
-	printf("CREDITED :  %d\n\n", credit);
+	printf("ID 				:		");
+	scanf("%d", &t.id);
+	printf("AMOUNT				:		");
+	scanf("%d", &t.amount);
+	printf("TYPE [O FOR CRED, 1 FOR DEBT]	:		");
+	scanf("%d", &t.type);
+	scanf("%c", &ch);
+	printf("DESC				:		");
+	get_line(t.desc, 256);
+	/*if(len > 0)
+		strcpy(t.desc, line);*/
+	//scanf("%s", t.desc);
+	printf("PARTY ID			:		");
+	scanf("%d", &t.party_id);
+	t.cat = time(NULL);
+	txn_insert_in_list(app, &t);
 	puts("");
 }
-
