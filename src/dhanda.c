@@ -82,6 +82,7 @@ int main(int argc, char *argv[])
 		dhanda_parse_cmd_line(&app.cmd);
 
 		/* 2. Handle the command (Update app logic) */
+		debug_print("command ran");
 		dhanda_app_cmd_handle(&app);
 
 		/* 3. Render the screen */
@@ -224,12 +225,17 @@ dhanda_parse_cmd_line(cmdline *cmd)
 void
 dhanda_app_cmd_handle(dhanda *app)
 {
+	debug_print("command handler");
 	for (int i = 0; commands[i].cmd; ++i) {
 		if (strcmp(app->cmd.argv[0], commands[i].cmd) == 0) {
-			if (commands[i].resolver)
+			if (commands[i].resolver) {
+				debug_print("renderer called");
 				commands[i].renderer(app);
-			else
+			}
+			else {
 				app->renderer = commands[i].renderer;
+			}
+			debug_print("command handler called");
 			commands[i].handle(app);
 			return;
 		}
@@ -257,6 +263,7 @@ dhanda_app_render(dhanda *app)
 static void
 dhanda_command_party_home(dhanda *app)
 {
+	debug_print("");
 	party_filter filter = {
 		.page=1,
 		.items=10,
@@ -270,6 +277,7 @@ dhanda_command_party_home(dhanda *app)
 static void
 dhanda_command_txn_home(dhanda *app)
 {
+	debug_print("");
 	txn_filter filter = {
 		.page=1,
 		.items=10,
@@ -286,6 +294,7 @@ dhanda_command_back(dhanda *app)
 static void
 dhanda_command_exit(dhanda *app)
 {
+	debug_print("");
 	/* @TODO Clean app */
 	quit = 1;
 }
@@ -293,6 +302,7 @@ dhanda_command_exit(dhanda *app)
 static void
 dhanda_command_add(dhanda *app)
 {
+	debug_print("");
 	party p;
 	txn t;
 
@@ -323,6 +333,8 @@ dhanda_command_list(dhanda *app)
 		.page=1, .items=10,
 	};
 
+	debug_print("");
+
 	switch (app->context) {
 		case SCREEN_PARTY:
 			party_get(app, pfilter, app->party_list);
@@ -343,6 +355,7 @@ dhanda_command_show(dhanda *app)
 	int id;
 	int ret;
 
+	debug_print("");
 	assert(app->cmd.argc == 2);
 
 	id = atoi(app->cmd.argv[1]);
@@ -369,6 +382,7 @@ dhanda_command_edit(dhanda *app)
 	party p, *new_party;
 	Node *node;
 
+	debug_print("");
 	assert(app->cmd.argc == 2);
 
 	id = atoi(app->cmd.argv[1]);
@@ -411,6 +425,7 @@ dhanda_command_delete(dhanda *app)
 	party p, *new_party;
 	Node *node;
 
+	debug_print("");
 	assert(app->cmd.argc == 2);
 
 	id = atoi(app->cmd.argv[1]);
@@ -449,6 +464,7 @@ dhanda_command_search(dhanda *app)
 	int ret;
 	char *query;
 
+	debug_print("");
 	assert(app->cmd.argc == 2);
 
 	query = app->cmd.argv[1];
@@ -475,6 +491,7 @@ dhanda_command_search(dhanda *app)
 static void
 dhanda_resolve_add_renderer(dhanda *app)
 {
+	debug_print("");
 	switch (app->context) {
 		case SCREEN_PARTY: 	app->renderer = ui_party_show; break;
 		case SCREEN_TXN: 	app->renderer = ui_txn_show; break;
@@ -485,6 +502,7 @@ dhanda_resolve_add_renderer(dhanda *app)
 static void
 dhanda_resolve_list_renderer(dhanda *app)
 {
+	debug_print("");
 	switch (app->context) {
 		case SCREEN_PARTY: 	app->renderer = ui_party_list; break;
 		case SCREEN_TXN: 	app->renderer = ui_txn_list; break;
@@ -495,6 +513,7 @@ dhanda_resolve_list_renderer(dhanda *app)
 static void
 dhanda_resolve_show_renderer(dhanda *app)
 {
+	debug_print("");
 	switch (app->context) {
 		case SCREEN_PARTY: 	app->renderer = ui_party_show; break;
 		case SCREEN_TXN: 	app->renderer = ui_txn_show; break;
@@ -505,6 +524,7 @@ dhanda_resolve_show_renderer(dhanda *app)
 static void
 dhanda_resolve_search_renderer(dhanda *app)
 {
+	debug_print("");
 	switch (app->context) {
 		case SCREEN_PARTY: 	app->renderer = ui_party_list; break;
 		case SCREEN_TXN: 	app->renderer = ui_txn_list; break;
@@ -515,6 +535,7 @@ dhanda_resolve_search_renderer(dhanda *app)
 static void
 dhanda_resolve_edit_renderer(dhanda *app)
 {
+	debug_print("");
 	switch (app->context) {
 		case SCREEN_PARTY: 	app->renderer = ui_party_show; break;
 		default: app->renderer = NULL;
@@ -524,6 +545,7 @@ dhanda_resolve_edit_renderer(dhanda *app)
 static void
 dhanda_resolve_delete_renderer(dhanda *app)
 {
+	debug_print("");
 	switch (app->context) {
 		case SCREEN_PARTY: 	app->renderer = ui_party_list; break;
 		default: app->renderer = NULL;
