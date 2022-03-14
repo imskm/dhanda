@@ -4,6 +4,7 @@
 int txn_findbyid(dhanda *app, int id, txn *result)
 {
 	int matched = -1;
+	debug_print("");
 
 	while(fread(result, sizeof(txn), 1, app->txn_fp) > 0) {
 		if(id == result->id) {
@@ -22,6 +23,7 @@ int txn_search(dhanda *app, char *query, struct list *result)
 
 	txn temp;
 	int matched = -1;
+	debug_print("");
 
 	while(fread(&temp, sizeof(temp), 1, app->txn_fp) > 0) {
 		/* @TODO */
@@ -43,6 +45,7 @@ int txn_findbytype(dhanda *app, int type, struct list *result)
 	Node *n;
 
 	count = 0;
+	debug_print("");
 	while(fread(&temp, sizeof(txn), 1, app->txn_fp)>0) {
 
 		if (type == temp.type)
@@ -61,6 +64,7 @@ int txn_get(dhanda *app, txn_filter filter, struct list *result)
 	txn temp;
 	Node *node;
 	int count, offset;
+	debug_print("");
 
 	count = 0;
 	offset = (filter.page - 1) * filter.items * sizeof(txn);

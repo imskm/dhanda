@@ -6,6 +6,7 @@ void ui_txn_list(struct dhanda *app)
 {
 	Node *temp;
 	txn *t;
+	debug_print("");
 
 	printf("TRANSACTION ----- HISTORY\n\n");
 	printf("ID         PARTY_ID            AMOUNT          PTYPE\n");
