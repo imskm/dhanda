@@ -11,6 +11,8 @@ void ui_party_show(struct dhanda *app)
 	char lname[32];
 	char phone[12];
 	int amount;
+
+	debug_print("");
 	p = party_first_in_list(app);
 	printf("PARTY :------%s", p->fname);
 	printf("\n\n");
