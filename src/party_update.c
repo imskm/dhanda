@@ -6,6 +6,8 @@ int party_update(dhanda *app, party *old_party, struct party *new_party)
 	party temp;
 	int matched = -1;
 
+	debug_print("");
+
 	fseek(app->party_fp, 0, SEEK_SET);
 	//rewind(app->party_fp);
 	while(fread(&temp, sizeof(party), 1, app->party_fp) > 0)
@@ -18,5 +20,6 @@ int party_update(dhanda *app, party *old_party, struct party *new_party)
 			 break;
 			 }
 		 }
+		 
 		 return matched;
  }		 

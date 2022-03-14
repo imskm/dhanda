@@ -7,6 +7,8 @@
 int party_findbyid(dhanda *app, int id, party *result)
 {
 	int matched = 0;
+
+	debug_print("");
 	
 	while(fread(result, sizeof(party), 1, app->party_fp) > 0) {
 		if(id == result->id) {
@@ -31,6 +33,8 @@ int party_search(dhanda *app, char *query, struct list *result)
 	party temp;
 	Node *node;
 	int matched = 0;
+
+	debug_print("");
 	
 	
 	while(fread(&temp, sizeof(temp), 1, app->party_fp) > 0) {
@@ -54,6 +58,8 @@ int party_get(dhanda *app, party_filter filter, struct list *result)
 	party temp;
 	int count = 0, offset;
 	Node *node;
+
+	debug_print("");
 	
 	/*offset = (filter.page - 1) * filter.items * sizeof(party);
 	fseek(app->party_fp, offset * -1, SEEK_END);*/

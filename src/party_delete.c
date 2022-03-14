@@ -10,6 +10,8 @@ int party_delete(dhanda *app, party *party)
 	struct party temp;
 	int matched = -1;
 	int trunc_size, count = 0;
+
+	debug_print("");
 	
 	
 	while(fread(&temp, sizeof(temp), 1, app->party_fp) > 0) {

@@ -4,6 +4,7 @@
 
 void ui_party_list(struct dhanda *app)
 {
+
 	Node *ptr;
 	party *p;
 	int id;
@@ -12,6 +13,8 @@ void ui_party_list(struct dhanda *app)
 	int type;
 	char desc[256];
 	int party_id;
+
+	debug_print("");
 	ptr = app->party_list->head;
 	printf("DHANDA > PARTY LIST\n\n");
 	printf("%-5s %-20s %-20s %-15s %-10s", "ID", "FNAME", "LNAME", "AMOUNT", "PHONE");
