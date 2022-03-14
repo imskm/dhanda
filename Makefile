@@ -14,6 +14,7 @@ ifdef PROD
 	CFLAGS+=-O3
 else
 	CFLAGS+=-g
+	CFLAGS+=-DDEBUG
 endif
 
 $(EXECUTABLE): $(OBJDIR) $(OBJS)

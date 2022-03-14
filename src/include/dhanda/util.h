@@ -20,10 +20,10 @@
 #define start_cmdline_color() printf(ANSI_BOLD ANSI_COLOR_CYAN);
 #define end_cmdline_color()   printf(ANSI_RESET); fflush(stdout);
 
-#ifdef PROD
-#define debug_print(fmt) 
-#else
+#if defined(DEBUG)
 #define debug_print(fmt) fprintf(stderr, "%s:%s:%d: %s\n", __FILE__, __func__, __LINE__, fmt);
+#else
+#define debug_print(fmt)
 #endif
 
 int get_line(char line[], int size);
