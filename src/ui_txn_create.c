@@ -8,6 +8,7 @@ void ui_txn_create(struct dhanda *app)
 	txn t;
 	char line[256], ch;
 	int len;
+	debug_print("");
 
 	printf("TRANSACTION - CREATE\n\n");
 	printf("ID 				:		");

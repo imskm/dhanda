@@ -6,6 +6,7 @@ void
 txn_insert_in_list(dhanda *app, txn *t)
 {
 	Node *node;
+	debug_print("");
 
 	node = list_new_node(app->txn_list, t);
 	if (node)
@@ -17,6 +18,7 @@ txn_first_in_list(dhanda *app)
 {
 	txn *t = NULL;
 	Node *head;
+	debug_print("");
 
 	head = app->txn_list->head;
 	if (head)
@@ -30,6 +32,7 @@ txn_second_in_list(dhanda *app)
 {
 	txn *t = NULL;
 	Node *head;
+	debug_print("");
 
 	head = app->txn_list->head;
 	if (head && head->next)

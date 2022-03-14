@@ -8,6 +8,7 @@ void ui_txn_show(struct dhanda *app)
 	Node *ptr;
 	ptr = app->txn_list->head;
 	txn *t;
+	debug_print("");
 
 	t = (txn *) ptr->data;
 

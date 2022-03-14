@@ -4,6 +4,7 @@
 int txn_add(dhanda *app, txn *txn)
 {
 	int init_posn, fin_posn;
+	debug_print("");
 
 	fseek(app->txn_fp, 0, SEEK_END);
 	init_posn = ftell(app->txn_fp);
