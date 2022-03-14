@@ -2,6 +2,7 @@ CC=gcc
 CFLAGS+=-Isrc/include
 
 EXECUTABLE=dhanda
+DBDIR=~/.dhanda
 OBJDIR=.objs
 SRCDIR=src
 SRCS:=$(shell find $(SRCDIR) -name '*.c')
@@ -26,3 +27,6 @@ $(OBJDIR)/%.c.o: $(SRCDIR)/%.c
 
 clean:
 	rm -rf $(OBJDIR)
+
+fresh:
+	rm -rf $(DBDIR)

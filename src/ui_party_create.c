@@ -23,6 +23,8 @@ void ui_party_create(struct dhanda *app)
 	printf("AMOUNT     :  ");
 	scanf("%d", &p.amount);
 
+	party_insert_in_list(app, &p);
+
 	puts("");
 }
 
