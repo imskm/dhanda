@@ -16,7 +16,7 @@ void ui_party_delete(struct dhanda *app)
 
 
 
-	printf("DHANDA  >  PARTY DELETE\n\n");
+	printf("DHANDA  >  PARTY > DELETE\n\n");
 	
 	ptr = app->party_list->head;
 	while(!ptr){
