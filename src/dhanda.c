@@ -306,6 +306,7 @@ dhanda_command_add(dhanda *app)
 	party p;
 	txn t;
 
+	clear();
 	switch (app->context) {
 		case SCREEN_PARTY:
 			/* Insert blank party in the list that will be used by ui_party_create
