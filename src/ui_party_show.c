@@ -14,14 +14,14 @@ void ui_party_show(struct dhanda *app)
 
 	debug_print("");
 	p = party_first_in_list(app);
-	printf("ID    : %d\n\n", p->id);
+	printf("  ID NO     : %d\n\n", p->id);
 
-	printf("FNAME :%s", p->fname);
+	printf("  FULL NAME : %s", p->fname);
 	printf("\n\n");
-	printf("LNAME :%s", p->lname);
+	printf("  LAST NAME : %s", p->lname);
 	printf("\n\n");
 
-	printf("PHONE : %s\n\n", p->phone);
+	printf("  PHONE NO  : %s\n\n", p->phone);
 
 	
 }
