@@ -16,7 +16,7 @@ void ui_party_list(struct dhanda *app)
 
 	debug_print("");
 	ptr = app->party_list->head;
-	printf("DHANDA > PARTY LIST\n\n");
+	printf("DHANDA > PARTY > LIST\n\n");
 	printf("  %-13s %-20s %-20s %-15s %-10s\n\n\n", "ID", "FIRST NAME", "LAST NAME", "AMOUNT", "PHONE");
 	while(ptr){
 		p = (party *) ptr->data;
