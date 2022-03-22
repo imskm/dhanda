@@ -11,16 +11,17 @@ void ui_party_create(struct dhanda *app)
 	*/
 	party p;
 
-	printf("CREATE....\n\n");
-	printf("FIRST NAME :  ");
+	printf("PARTY > CREATE\n\n");
+	printf("  FIRST NAME :  ");
 	get_string(p.fname, sizeof(p.fname));
-	printf("LAST NAME  :  ");
+	printf("\n");
+	printf("  LAST NAME  :  ");
 	get_string(p.lname, sizeof(p.lname));
-
-	printf("PHONE      :  ");
+	printf("\n");
+	printf("  PHONE      :  ");
 	get_string(p.phone, sizeof(p.phone));
-
-	printf("AMOUNT     :  ");
+	printf("\n");
+	printf("  AMOUNT     :  ");
 	scanf("%d", &p.amount);
 
 	party_insert_in_list(app, &p);

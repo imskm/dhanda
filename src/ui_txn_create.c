@@ -10,7 +10,7 @@ void ui_txn_create(struct dhanda *app)
 	int len;
 	debug_print("");
 
-	printf("TRANSACTION - CREATE\n\n");
+	printf("DHANDA > TRANSACTION > CREATE\n\n");
 	printf("ID 				:		");
 	scanf("%d", &t.id);
 	printf("AMOUNT				:		");
