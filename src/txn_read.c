@@ -67,8 +67,8 @@ int txn_get(dhanda *app, txn_filter filter, struct list *result)
 	debug_print("");
 
 	count = 0;
-	offset = (filter.page - 1) * filter.items * sizeof(txn);
-	fseek(app->txn_fp, -offset, SEEK_END);
+	// offset = (filter.page - 1) * filter.items * sizeof(txn);
+	// fseek(app->txn_fp, -offset, SEEK_END);
 
 	while (fread(&temp, sizeof(temp), 1, app->txn_fp) > 0) {
 		if (count >= filter.items)
