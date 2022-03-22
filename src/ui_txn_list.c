@@ -8,7 +8,7 @@ void ui_txn_list(struct dhanda *app)
 	txn *t;
 	debug_print("");
 
-	printf("TRANSACTION ----- HISTORY\n\n");
+	printf("DHANDA > TRANSACTION > LIST\n\n");
 	printf("ID         PARTY_ID            AMOUNT          PTYPE\n");
 	printf("___         _______            ______          _____");
 
