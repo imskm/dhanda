@@ -13,7 +13,7 @@ int party_delete(dhanda *app, party *party)
 
 	debug_print("");
 	
-	
+	fseek(app->party_fp, 0, SEEK_SET);
 	while(fread(&temp, sizeof(temp), 1, app->party_fp) > 0) {
 		if(party->id == temp.id) {
 			matched = 0;	
@@ -21,6 +21,9 @@ int party_delete(dhanda *app, party *party)
 		}
 		count++;
 	}
+
+	if (matched == -1)
+		return 0;
 	
 	
 	while(fread(&temp, sizeof(temp), 1, app->party_fp) > 0) {

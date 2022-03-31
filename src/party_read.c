@@ -10,6 +10,7 @@ int party_findbyid(dhanda *app, int id, party *result)
 
 	debug_print("");
 	
+	fseek(app->party_fp, 0, SEEK_SET);
 	while(fread(result, sizeof(party), 1, app->party_fp) > 0) {
 		if(id == result->id) {
 			matched = 1;
@@ -36,7 +37,7 @@ int party_search(dhanda *app, char *query, struct list *result)
 
 	debug_print("");
 	
-	
+	fseek(app->party_fp, 0, SEEK_SET); 
 	while(fread(&temp, sizeof(temp), 1, app->party_fp) > 0) {
 		if(strstr(temp.phone, query)) {
 			matched = 1;

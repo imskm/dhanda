@@ -389,7 +389,7 @@ dhanda_command_edit(dhanda *app)
 	id = atoi(app->cmd.argv[1]);
 	switch (app->context) {
 		case SCREEN_PARTY:
-			ret = party_findbyid(app, id, &p);
+			ret = party_findbyid(app, id, &p);	
 			if (ret == -1) {
 				fprintf(stderr, "party_findbyid error\n");
 				return;

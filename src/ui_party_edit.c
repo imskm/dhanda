@@ -7,14 +7,31 @@ void ui_party_edit(struct dhanda *app)
 {
 	long int phone, amount;
 	char fname[64], lname[64];
+	party *old_party, *new_party;
+
+	old_party = party_first_in_list(app);
+	new_party = party_second_in_list(app);
 
 	debug_print("");
 	printf("DHANDA > PARTY > EDIT\n\n");
-	printf("FIRST NAME :  %s\n\n", fname);
-	printf("LAST NAME  :  %s\n\n", lname);
-	printf("PHONE      :  %ld\n\n", phone);
-	printf("AMOUNT     :  %ld\n\n", amount);
+	printf("FIRST NAME :  %s\n\n", old_party->fname);
+	printf("LAST NAME  :  %s\n\n", old_party->lname);
+	printf("PHONE      :  %s\n\n", old_party->phone);
+	printf("AMOUNT     :  %d\n\n", old_party->amount);
 	puts("");
+
+
+	printf("FIRST NAME :  ");
+	get_string(new_party->fname, sizeof(new_party->fname));
+
+	printf("LAST NAME  :  ");
+	get_string(new_party->lname, sizeof(new_party->lname));
+
+	printf("PHONE      :  ");
+	get_string(new_party->phone, sizeof(new_party->phone));
+
+	printf("AMOUNT     :  ");
+	scanf("%d", &new_party->amount);
 }
 
 
