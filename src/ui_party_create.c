@@ -11,7 +11,7 @@ void ui_party_create(struct dhanda *app)
 	*/
 	party p;
 
-	printf("PARTY > CREATE\n\n");
+	printf("DHANDA > PARTY > CREATE\n\n");
 	printf("  FIRST NAME :  ");
 	get_string(p.fname, sizeof(p.fname));
 	printf("\n");
