@@ -3,16 +3,26 @@
 
 int txn_findbyid(dhanda *app, int id, txn *result)
 {
-	int matched = -1;
+	int matched = 0;
+
 	debug_print("");
 
+	fseek(app->txn_fp, 0, SEEK_SET);
 	while(fread(result, sizeof(txn), 1, app->txn_fp) > 0) {
 		if(id == result->id) {
-			matched = 0;
+			matched = 1;
 			break;
 		}
 	}
+	if(matched == 0) {
+		if(ferror(app->txn_fp))
+			matched = -1;
+		
+		else
+			matched = 0;
+	}
 	return matched;
+
 
 }
 
@@ -20,12 +30,19 @@ int txn_findbyid(dhanda *app, int id, txn *result)
 	
 int txn_search(dhanda *app, char *query, struct list *result)
 {
-
+	Node *n;
 	txn temp;
-	int matched = -1;
+	int matched = 0;
 	debug_print("");
-
+	int party_id = atoi(query);
+	
+	fseek(app->txn_fp, 0, SEEK_SET);
 	while(fread(&temp, sizeof(temp), 1, app->txn_fp) > 0) {
+		if (party_id == temp.party_id) {
+			n = list_new_node(result, &temp);
+			list_insert_end(result, n);
+			++matched;
+		}
 		/* @TODO */
 		/*
 		if (strcmp(temp.cat, query) == 0) {
@@ -70,6 +87,7 @@ int txn_get(dhanda *app, txn_filter filter, struct list *result)
 	// offset = (filter.page - 1) * filter.items * sizeof(txn);
 	// fseek(app->txn_fp, -offset, SEEK_END);
 
+	fseek(app->txn_fp, 0, SEEK_SET);
 	while (fread(&temp, sizeof(temp), 1, app->txn_fp) > 0) {
 		if (count >= filter.items)
 			break;
