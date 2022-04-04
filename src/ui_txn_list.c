@@ -10,7 +10,6 @@ void ui_txn_list(struct dhanda *app)
 
 	printf("DHANDA > TRANSACTION > LIST\n\n");
 	printf("ID         PARTY_ID            AMOUNT          PTYPE\n");
-	printf("___         _______            ______          _____");
 
 	temp = app->txn_list->head;
 	while(temp != NULL)
