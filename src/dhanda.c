@@ -483,8 +483,14 @@ dhanda_command_search(dhanda *app)
 			break;
 		/* @NOTE Edit for TXN is not allowed */
 		case SCREEN_TXN:
-			/* @TODO What will be the query for txn? */
-			fprintf(stderr, "(TODO)\n");
+			ret = txn_search(app, query, app->txn_list);
+			if (ret == -1) {
+				fprintf(stderr, "party_findbyid error\n");
+				return;
+			} else if (ret == 0) {
+				fprintf(stderr, "No match for query '%s' found\n", query);
+				return;
+			}
 			break;
 	}
 }
