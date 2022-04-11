@@ -55,32 +55,32 @@ These three operations are done in a tight loop.
 ## TODO
 
 ### PARTY
-- [] add created at and updated at
-- [] validate add/edit input
-	- [] First/Last name should only contain alpha/num/space
-	- [] Amount should be integer (handle it in input), don't use scanf
-	- [] Phone should be 10 digit number
-- [] store sanatized input 
-	- [] First/Last name should be in title case
-- [] show date/time in list/show screen in ISO format
+- add created at and updated at
+- validate add/edit input
+	- First/Last name should only contain alpha/num/space
+	- Amount should be integer (handle it in input), don't use scanf
+	- Phone should be 10 digit number
+- store sanatized input 
+	- First/Last name should be in title case
+- show date/time in list/show screen in ISO format
 
 ### TXN
-- [] validate party ID (party must exist)
-- [] store sanatized input 
-	- [] First/Last name should be in title case
-- [] show date/time in list/show screen in ISO format
-- [] change the UI of show screen
-- [] change the order of the fields
+- validate party ID (party must exist)
+- store sanatized input 
+	- First/Last name should be in title case
+- show date/time in list/show screen in ISO format
+- change the UI of show screen
+- change the order of the fields
 
 
-- [] Edit
-	- [] on blank input take old value
-	- [] show hint about what happens when user inputs blank
+- Edit
+	- on blank input take old value
+	- show hint about what happens when user inputs blank
 
-- [] Add new function to push error message from db layer to app struct
-- [] Show that error message in UI rendering
+- Add new function to push error message from db layer to app struct
+- Show that error message in UI rendering
 
 ### UI
-- [] Add bg color in header and footer
-- [] make space for status bar (show stats on the status bar)
+- Add bg color in header and footer
+- make space for status bar (show stats on the status bar)
 - 
