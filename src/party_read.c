@@ -6,26 +6,22 @@
 
 int party_findbyid(dhanda *app, int id, party *result)
 {
-	int matched = 0;
+	int ret;
+	int found = 0;
 
 	debug_print("");
 	
 	fseek(app->party_fp, 0, SEEK_SET);
-	while(fread(result, sizeof(party), 1, app->party_fp) > 0) {
+	while((ret = fread(result, sizeof(party), 1, app->party_fp)) > 0) {
 		if(id == result->id) {
-			matched = 1;
+			found = 1;
 			break;
 		}
 	}
-	if(matched == 0) {
-		if(ferror(app->party_fp))
-			matched = -1;
-		
-		else
-			matched = 0;
-	}
-		
-	return matched;
+	if (ferror(app->party_fp))
+		found = -1;
+
+	return found;
 }
 
 
