@@ -9,13 +9,14 @@ void ui_txn_list(struct dhanda *app)
 	debug_print("");
 
 	printf("DHANDA > TRANSACTION > LIST\n\n");
-	printf("ID         PARTY_ID            AMOUNT          PTYPE\n");
+	printf("ID         PARTY_ID            AMOUNT          PTYPE[O FOR CRED, 1 FOR DEBT]\n");
+	printf("\n\n");
 
 	temp = app->txn_list->head;
 	while(temp != NULL)
 	{	
 		t = (txn *)temp->data;
-         	printf("%-10d %-15d %-15d %-15d\n\n",
+         	printf("%-10d %-19d %-15d %-15d\n\n",
 			       	t->id,
 				t->party_id,
 			       	t->amount,
