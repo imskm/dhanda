@@ -8,15 +8,19 @@ void ui_txn_list(struct dhanda *app)
 	txn *t;
 	debug_print("");
 
-	printf("DHANDA > TRANSACTION > LIST\n\n");
-	printf("ID         PARTY_ID            AMOUNT          PTYPE[O FOR CRED, 1 FOR DEBT]\n");
+	sky();
+	bold();
+	centreprint("DHANDA > TRANSACTION > LIST");
+	printf("\n\n");
+	reset();
+	printf("   ID         PARTY_ID            AMOUNT          DEBIT/CREDIT(D/C)\n");
 	printf("\n\n");
 
 	temp = app->txn_list->head;
 	while(temp != NULL)
 	{	
 		t = (txn *)temp->data;
-         	printf("%-10d %-19d %-15d %-15d\n\n",
+         	printf("   %-10d %-19d %-15d %-15d\n\n",
 			       	t->id,
 				t->party_id,
 			       	t->amount,

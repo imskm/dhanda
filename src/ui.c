@@ -1,6 +1,7 @@
 #include <dhanda/dhanda.h>
 #include <dhanda/ui.h>
 
+
 void
 ui_home(dhanda *app)
 {
@@ -10,7 +11,11 @@ ui_home(dhanda *app)
 		debit = 144,
 		credit = 12;
 
-	printf("DHANDA\n\n");
+	sky();
+	bold();
+	centreprint("DHANDA");
+	printf("\n\n");
+	reset();
 	printf("Total # txn     Total amount   Total # party    Total debit     Total credit");
 	printf("\n");
 	printf("___________     ____________   _____________    ___________     ____________");
