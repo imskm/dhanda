@@ -196,7 +196,11 @@ dhanda_app_print_helpline(dhanda *app)
 		printf("p[arty]    t[xn]    add    list    show txn_id    search query");
 	else
 		printf("**UNKNOWN SCREEN**\n");
-	puts("\n");
+	printf("\n");
+	error();
+	reset();
+	print_error("      OPENING ERROR");
+	puts("");
 	start_cmdline_color();
 	printf("> ");
 	end_cmdline_color();
