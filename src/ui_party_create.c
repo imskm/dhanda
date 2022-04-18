@@ -10,6 +10,11 @@ void ui_party_create(struct dhanda *app)
 	char fname[64] = "Safwan", lname[64] = "Haider";
 	*/
 	party p;
+	int len;
+	long ret;
+	char s[100];
+	char *ptr;
+
 
 	printf("DHANDA > PARTY > CREATE\n\n");
 	printf("  FIRST NAME :  ");
@@ -20,9 +25,11 @@ void ui_party_create(struct dhanda *app)
 	printf("\n");
 	printf("  PHONE      :  ");
 	get_string(p.phone, sizeof(p.phone));
+	
 	printf("\n");
 	printf("  AMOUNT     :  ");
-	scanf("%d", &p.amount);
+    get_string(p.phone, sizeof(p.phone));
+		
 
 	party_insert_in_list(app, &p);
 
