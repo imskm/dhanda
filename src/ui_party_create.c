@@ -16,21 +16,26 @@ void ui_party_create(struct dhanda *app)
 	char *ptr;
 
 
-	printf("DHANDA > PARTY > CREATE\n\n");
-	printf("  FIRST NAME :  ");
+	sky();
+	bold();
+	centreprint("DHANDA > PARTY > CREATE");
+	printf("\n\n");
+	reset();
+	grey();
+	printf("   FIRST NAME :  ");
 	get_string(p.fname, sizeof(p.fname));
 	printf("\n");
-	printf("  LAST NAME  :  ");
+	printf("   LAST NAME  :  ");
 	get_string(p.lname, sizeof(p.lname));
 	printf("\n");
-	printf("  PHONE      :  ");
+	printf("   PHONE      :  ");
 	get_string(p.phone, sizeof(p.phone));
 	
 	printf("\n");
 	printf("  AMOUNT     :  ");
     get_string(p.phone, sizeof(p.phone));
 		
-
+	reset();
 	party_insert_in_list(app, &p);
 
 	puts("");

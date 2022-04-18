@@ -16,7 +16,13 @@ void ui_party_edit(struct dhanda *app)
 	new_party = party_second_in_list(app);
 
 	debug_print("");
-	printf("DHANDA > PARTY > EDIT\n\n");
+
+	sky();
+	bold();
+	centreprint("DHANDA > PARTY > EDIT");
+	printf("\n\n");
+	reset();
+
 	printf("FIRST NAME :  %s\n\n", old_party->fname);
 	printf("LAST NAME  :  %s\n\n", old_party->lname);
 	printf("PHONE      :  %s\n\n", old_party->phone);

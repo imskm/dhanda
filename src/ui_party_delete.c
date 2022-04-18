@@ -12,8 +12,12 @@ void ui_party_delete(struct dhanda *app)
 	debug_print("");
 
 
+	sky();
+	bold();
+	centreprint("DHANDA > PARTY > DELETE");
+	printf("\n\n");
+	reset();
 
-	printf("DHANDA  >  PARTY > DELETE\n\n");
 	
 	ptr = app->party_list->head;
 	while(!ptr){

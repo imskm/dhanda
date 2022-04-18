@@ -12,7 +12,11 @@ void ui_txn_show(struct dhanda *app)
 
 	t = (txn *) ptr->data;
 
-	printf("DHANDA > TRANSACTION > SHOW\n\n");
+	sky();
+	bold();
+	centreprint("DHANDA > TRANSACTION > SHOW");
+	printf("\n\n");
+	reset();
 	printf("%-10s %-10s %-10s %-10s %-10s %-10s", "ID", 
 												  "AMOUNT",
 												  "CAT",
