@@ -33,7 +33,7 @@ void ui_party_create(struct dhanda *app)
 	
 	printf("\n");
 	printf("  AMOUNT     :  ");
-    get_string(p.phone, sizeof(p.phone));
+    scanf("%d",&p.amount);
 		
 	reset();
 	party_insert_in_list(app, &p);

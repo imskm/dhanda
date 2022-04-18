@@ -40,7 +40,7 @@ void ui_party_edit(struct dhanda *app)
 	get_string(new_party->phone, sizeof(new_party->phone));
 	
 	printf("AMOUNT     :  ");
-	get_string(new_party->phone, sizeof(new_party->phone));
+	scanf("%d", &new_party->amount);
 }
 
 
