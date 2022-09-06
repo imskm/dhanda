@@ -8,9 +8,6 @@ void ui_party_delete(struct dhanda *app)
 {
 	Node *ptr;
 	party *p;
-	int id;
-	char name[64] = "Safwan";
-	long int phone = 9748538411;
 
 	debug_print("");
 
