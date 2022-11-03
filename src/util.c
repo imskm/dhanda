@@ -72,7 +72,8 @@ void warning(){
 
 //CENTRE PRINTING FUNCTION
 
-void centreprint(char *s){
+void centreprint(char *s)
+{
 
 	int len = strlen(s);
 	int x = 136;
@@ -92,18 +93,21 @@ void centreprint(char *s){
 
 }
 
-void print_success(char *s){
+void print_success(char *s)
+{
 
 	printf("\x1b[1;32m");
 	printf("%s", s);
 }
 
-void print_error(char *s){
+void print_error(char *s)
+{
 	printf("\x1b[1;31m");
 	printf("%s", s);
 }
 
-void print_warning(char *s){
+void print_warning(char *s)
+{
 	printf("\x1b[1;93m");
 	printf("%s", s);
 }

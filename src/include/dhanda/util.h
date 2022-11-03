@@ -37,10 +37,10 @@ void bold();
 void warning();
 void error();
 void success();
-void print_success(char s[100]);
-void print_error(char s[100]);
-void print_warning(char s[100]);
+void print_success(char *s);
+void print_error(char *s);
+void print_warning(char *s);
 
-void centreprint(char s[100]);
+void centreprint(char *s);
 
 #endif
