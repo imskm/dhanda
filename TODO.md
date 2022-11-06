@@ -68,6 +68,8 @@ TASK
 - Show last 10 transaction below Party detail in Party Show screen.
 
 
+### BUG LIST
+
 - BUG: Garbage number is shown in place of ID NO in party/show
 - BUG: CRASH: Command `show PARTY_ID` Seg Faults.
 - Remove Red ERROR string at the bottom, it should be only visible when error message is shown
